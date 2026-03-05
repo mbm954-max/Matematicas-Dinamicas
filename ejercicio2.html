@@ -1,17 +1,155 @@
 <!DOCTYPE html>
 <html lang="es-ES">
   <meta charset="UTF-8">
-  <title>Ejercicio 2</title>
+  <title>Ejercicio 2 - Matemáticas Dinámicas</title>
 
-  <body>
-    <h1>Ejercicio 2</h1>
+  <body style="font-family: Arial, sans-serif; margin: 20px;">
+
+    <h1 style="background-color: navy; color: white; padding: 12px; border: 4px solid black;">
+      Ejercicio 2: Demostración de HTML (listas, tablas e inputs)
+    </h1>
+
+    <p><strong>Asignatura:</strong> Matemáticas Dinámicas</p>
+    <p><strong>Alumna:</strong> María Soledad Balsalobre Miravete</p>
 
     <p>
-      Este archivo se completará en un futuro ejercicio.
+      En esta página muestro lo aprendido hasta ahora usando listas (ordenadas y no ordenadas),
+      tablas (con encabezados, estilos y combinaciones de filas/columnas) y elementos de entrada
+      (no funcionales).
+    </p>
+
+    <hr>
+
+    <h2>1) Lista de “misiones” del curso</h2>
+
+    <p>Lista no ordenada personalizada (cuadrados):</p>
+    <ul style="list-style-type: square; border: 2px solid #000; padding: 15px; width: 70%;">
+      <li style="background-color: #e6f7ff;">Crear estructura básica de una web (index)</li>
+      <li style="background-color: #ffffff;">Aprender etiquetas principales (h1, p, a, strong, i)</li>
+      <li style="background-color: #e6f7ff;">
+        Trabajar con listas
+        <ul style="list-style-type: circle;">
+          <li>Listas no ordenadas (ul)</li>
+          <li>Listas ordenadas (ol)</li>
+          <li>Listas anidadas</li>
+        </ul>
+      </li>
+      <li style="background-color: #ffffff;">
+        Tablas y estructura
+        <ul style="list-style-type: circle;">
+          <li>Filas (tr) y celdas (td)</li>
+          <li>Encabezados (th)</li>
+          <li>Uniones (colspan / rowspan)</li>
+        </ul>
+      </li>
+      <li style="background-color: #e6f7ff;">Introducción a elementos de entrada (input)</li>
+    </ul>
+
+    <p>Lista ordenada (romanos) con un “plan de trabajo”:</p>
+    <ol type="i" style="background-color: #fff3cd; padding: 15px; width: 70%;">
+      <li>Repasar teoría</li>
+      <li>Hacer un ejemplo propio</li>
+      <li>Subirlo a GitHub Pages</li>
+      <li>Comprobar que los enlaces funcionan</li>
+    </ol>
+
+    <hr>
+
+    <h2>2) Tabla de progreso (con estilos, colspan y rowspan)</h2>
+
+    <table style="width: 90%; border: 4px solid black; border-collapse: collapse; text-align: center;">
+      <tr style="background-color: lightgrey;">
+        <th style="border: 2px solid black; padding: 8px;">Bloque</th>
+        <th style="border: 2px solid black; padding: 8px;">Etiqueta(s)</th>
+        <th style="border: 2px solid black; padding: 8px;">Nivel</th>
+        <th style="border: 2px solid black; padding: 8px;">Notas</th>
+      </tr>
+
+      <tr>
+        <td style="border: 2px solid black; padding: 8px;">Estructura</td>
+        <td style="border: 2px solid black; padding: 8px;">html, meta, title, body</td>
+        <td style="border: 2px solid black; padding: 8px;">✔</td>
+        <td style="border: 2px solid black; padding: 8px;">Base de toda web</td>
+      </tr>
+
+      <tr style="background-color: #f2f2f2;">
+        <td style="border: 2px solid black; padding: 8px;">Texto</td>
+        <td style="border: 2px solid black; padding: 8px;">h1-h6, p, br, strong, i</td>
+        <td style="border: 2px solid black; padding: 8px;">✔</td>
+        <td style="border: 2px solid black; padding: 8px;">Títulos y párrafos</td>
+      </tr>
+
+      <tr>
+        <td style="border: 2px solid black; padding: 8px;" rowspan="2">Listas</td>
+        <td style="border: 2px solid black; padding: 8px;">ul + li</td>
+        <td style="border: 2px solid black; padding: 8px;">✔</td>
+        <td style="border: 2px solid black; padding: 8px;">No ordenadas</td>
+      </tr>
+      <tr>
+        <td style="border: 2px solid black; padding: 8px;">ol + li</td>
+        <td style="border: 2px solid black; padding: 8px;">✔</td>
+        <td style="border: 2px solid black; padding: 8px;">Ordenadas (type/start)</td>
+      </tr>
+
+      <tr style="background-color: #f2f2f2;">
+        <td style="border: 2px solid black; padding: 8px;">Tablas</td>
+        <td style="border: 2px solid black; padding: 8px;">table, tr, td, th</td>
+        <td style="border: 2px solid black; padding: 8px;">✔</td>
+        <td style="border: 2px solid black; padding: 8px;" colspan="1">Con estilos y combinaciones</td>
+      </tr>
+
+      <tr>
+        <td style="border: 2px solid black; padding: 8px;">Inputs</td>
+        <td style="border: 2px solid black; padding: 8px;">input (text, date, radio...)</td>
+        <td style="border: 2px solid black; padding: 8px;">✔</td>
+        <td style="border: 2px solid black; padding: 8px;">Aún no funcionales</td>
+      </tr>
+    </table>
+
+    <hr>
+
+    <h2>3) Zona de prueba de elementos de entrada (no funcional)</h2>
+
+    <p>Estos campos son solo para practicar la estructura (aún no hacen nada):</p>
+
+    <p>
+      <strong>Tu nombre:</strong><br>
+      <input type="text" name="nombre" id="nombre" value="" placeholder="Escribe tu nombre">
     </p>
 
     <p>
-      <a href="index.html">Volver a la página principal</a>
+      <strong>Fecha de hoy:</strong><br>
+      <input type="date" name="fecha" id="fecha" value="">
     </p>
+
+    <p>
+      <strong>Elige tu tema favorito:</strong><br>
+      <input type="radio" name="tema" id="tema1" value="Listas"> Listas
+      <input type="radio" name="tema" id="tema2" value="Tablas"> Tablas
+      <input type="radio" name="tema" id="tema3" value="Inputs"> Inputs
+    </p>
+
+    <p>
+      <strong>Marca lo que ya dominas:</strong><br>
+      <input type="checkbox" name="dominio" id="check1" value="Estructura"> Estructura
+      <input type="checkbox" name="dominio" id="check2" value="Listas"> Listas
+      <input type="checkbox" name="dominio" id="check3" value="Tablas"> Tablas
+    </p>
+
+    <p>
+      <strong>Contraseña (práctica):</strong><br>
+      <input type="password" name="password" id="password1" value="" placeholder="No se guardará">
+    </p>
+
+    <p>
+      <input type="button" name="boton" id="boton1" value="Púlsame (no funcional)">
+    </p>
+
+    <hr>
+
+    <p>
+      <a href="index.html">⬅ Volver a la página principal</a>
+    </p>
+
   </body>
 </html>
