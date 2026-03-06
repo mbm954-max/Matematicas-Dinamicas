@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ejercicio 3 - Trigonometría visual (MathJax)</title>
+
+  <link rel="stylesheet" href="miestilo.css">
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+      }
+    });
+
+    MathJax.Hub.Config({
+      TeX: {
+        Macros: {
+          R: "{\\mathbb R}",
+          N: "{\\mathbb N}",
+          Z: "{\\mathbb Z}",
+          bold: ["{\\bf #1}",1]
+        }
+      }
+    });
+
+    MathJax.Hub.Config({
+      TeX: { equationNumbers: { autoNumber: "AMS" } }
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML" async></script>
+
+  <body>
+    <h1 class="titulo">Ejercicio 3: Trigonometría visual con MathJax</h1>
+
+    <p><strong>Asignatura:</strong> Matemáticas Dinámicas</p>
+    <p><strong>Alumna:</strong> María Soledad Balsalobre Miravete</p>
+
+    <div class="aviso">
+      <strong>Objetivo:</strong> representar trigonometría de forma visual y demostrar identidades básicas usando el
+      <span class="verdeBlanco">círculo unitario</span> y un triángulo rectángulo. (Los cálculos se muestran con MathJax).
+    </div>
+
+    <h2 class="subtitulo">1) El triángulo rectángulo que “genera” seno y coseno</h2>
+
+    <div class="tarjeta">
+      <p>
+        Imagina un triángulo rectángulo con hipotenusa $r$ y un ángulo $\theta$ en la base.
+        Entonces:
+      </p>
+
+      <div class="formula">
+        $$
+        \sin(\theta)=\frac{\text{cateto opuesto}}{r},\qquad
+        \cos(\theta)=\frac{\text{cateto adyacente}}{r},\qquad
+        \tan(\theta)=\frac{\sin(\theta)}{\cos(\theta)}.
+        $$
+      </div>
+
+      <p class="centrado"><strong>Visual (esquema):</strong></p>
+
+      <table class="tabla" style="width: 90%; margin: 0 auto;">
+        <tr class="filaGris">
+          <th>Parte</th>
+          <th>Representación</th>
+          <th>Relación</th>
+        </tr>
+        <tr>
+          <td>Hipotenusa</td>
+          <td>$r$</td>
+          <td>Escala del triángulo</td>
+        </tr>
+        <tr class="filaGris">
+          <td>Cateto adyacente</td>
+          <td>$r\cos(\theta)$</td>
+          <td>“Proyección” horizontal</td>
+        </tr>
+        <tr>
+          <td>Cateto opuesto</td>
+          <td>$r\sin(\theta)$</td>
+          <td>“Proyección” vertical</td>
+        </tr>
+      </table>
+    </div>
+
+    <h2 class="subtitulo">2) Círculo unitario y la identidad $\sin^2(\theta)+\cos^2(\theta)=1$</h2>
+
+    <div class="tarjeta">
+      <p>
+        En el <strong>círculo unitario</strong> tomamos $r=1$. El punto del círculo asociado al ángulo $\theta$ es:
+      </p>
+
+      <div class="formula">
+        $$
+        P(\theta)=(\cos\theta,\sin\theta).
+        $$
+      </div>
+
+      <p>
+        Como $P(\theta)$ está en el círculo de radio 1 centrado en el origen, cumple la ecuación:
+      </p>
+
+      <div class="formula">
+        $$
+        x^2+y^2=1.
+        $$
+      </div>
+
+      <p>Si sustituimos $x=\cos\theta$ e $y=\sin\theta$, obtenemos la identidad fundamental:</p>
+
+      <div class="formula">
+        $$
+        \cos^2\theta+\sin^2\theta=1.
+        $$
+      </div>
+
+      <p class="centrado"><strong>Mini-dibujo “ASCII” del círculo (muy visual):</strong></p>
+      <pre class="monospace">
+             y
+             ↑
+         (0,1) •
+              |
+      •       |       •
+   (-1,0) ----O---- (1,0) → x
+      •       |       •
+              |
+         (0,-1) •
+      </pre>
+
+      <p>
+        El punto $P(\theta)$ cae en el círculo y sus coordenadas son precisamente $\cos\theta$ (horizontal) y $\sin\theta$ (vertical).
+      </p>
+    </div>
+
+    <h2 class="subtitulo">3) Una demostración “en dos líneas” de $\tan(\theta)=\dfrac{\sin\theta}{\cos\theta}$</h2>
+
+    <div class="tarjeta">
+      <p>Partimos de las definiciones en el triángulo:</p>
+
+      <div class="formula">
+        $$
+        \sin\theta=\frac{\text{opuesto}}{r},\qquad \cos\theta=\frac{\text{adyacente}}{r}.
+        $$
+      </div>
+
+      <p>Dividimos seno entre coseno:</p>
+
+      <div class="formula">
+        $$
+        \frac{\sin\theta}{\cos\theta}
+        =
+        \frac{\frac{\text{opuesto}}{r}}{\frac{\text{adyacente}}{r}}
+        =
+        \frac{\text{opuesto}}{\text{adyacente}}
+        =
+        \tan\theta.
+        $$
+      </div>
+
+      <p class="aviso">
+        Nota importante: si $\cos\theta=0$ (por ejemplo $\theta=\frac{\pi}{2}$), entonces $\tan\theta$ no está definida.
+      </p>
+    </div>
+
+    <h2 class="subtitulo">4) Tabla rápida de ángulos “famosos”</h2>
+
+    <div class="tarjeta">
+      <table class="tabla">
+        <tr class="filaGris">
+          <th>$\theta$</th>
+          <th>$\sin\theta$</th>
+          <th>$\cos\theta$</th>
+          <th>$\tan\theta$</th>
+        </tr>
+        <tr>
+          <td>$0$</td>
+          <td>$0$</td>
+          <td>$1$</td>
+          <td>$0$</td>
+        </tr>
+        <tr class="filaGris">
+          <td>$\frac{\pi}{6}$</td>
+          <td>$\frac{1}{2}$</td>
+          <td>$\frac{\sqrt{3}}{2}$</td>
+          <td>$\frac{1}{\sqrt{3}}$</td>
+        </tr>
+        <tr>
+          <td>$\frac{\pi}{4}$</td>
+          <td>$\frac{\sqrt{2}}{2}$</td>
+          <td>$\frac{\sqrt{2}}{2}$</td>
+          <td>$1$</td>
+        </tr>
+        <tr class="filaGris">
+          <td>$\frac{\pi}{3}$</td>
+          <td>$\frac{\sqrt{3}}{2}$</td>
+          <td>$\frac{1}{2}$</td>
+          <td>$\sqrt{3}$</td>
+        </tr>
+        <tr>
+          <td>$\frac{\pi}{2}$</td>
+          <td>$1$</td>
+          <td>$0$</td>
+          <td>No definida</td>
+        </tr>
+      </table>
+    </div>
+
+    <p>
+      <a class="enlaceBoton" href="index.html">⬅ Volver a index</a>
+    </p>
+  </body>
+</html>

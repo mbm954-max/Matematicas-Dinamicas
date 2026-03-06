@@ -1,0 +1,102 @@
+/* Estilo base */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f5f7fb;
+  color: #111;
+}
+
+.titulo {
+  background-color: navy;
+  color: white;
+  padding: 12px;
+  border: 4px solid black;
+}
+
+.subtitulo {
+  color: navy;
+  border-left: 6px solid navy;
+  padding-left: 10px;
+  margin-top: 20px;
+}
+
+.tarjeta {
+  background-color: white;
+  border: 2px solid #111;
+  padding: 14px;
+  border-radius: 10px;
+  margin: 14px 0;
+}
+
+.aviso {
+  background-color: #fff3cd;
+  border: 2px solid #111;
+  padding: 12px;
+}
+
+.verdeBlanco {
+  background-color: green;
+  color: white;
+  padding: 3px 6px;
+}
+
+.bordeFino {
+  border: 5px solid black;
+  padding: 4px;
+}
+
+.bordeGrueso {
+  border: 10px solid pink;
+  padding: 6px;
+}
+
+.enlaceBoton {
+  display: inline-block;
+  background-color: navy;
+  color: white;
+  padding: 8px 12px;
+  border: 3px solid black;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.enlaceBoton:hover {
+  background-color: #0b2a7a;
+}
+
+.tabla {
+  width: 100%;
+  border: 4px solid black;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.tabla th, .tabla td {
+  border: 2px solid black;
+  padding: 8px;
+}
+
+.filaGris {
+  background-color: lightgrey;
+}
+
+.formula {
+  background-color: #e6f7ff;
+  border: 2px solid #111;
+  padding: 10px;
+  overflow-x: auto;
+}
+
+.monospace {
+  font-family: courier, monospace;
+  background-color: #111;
+  color: #e6f7ff;
+  padding: 12px;
+  border: 3px solid black;
+  border-radius: 10px;
+  overflow-x: auto;
+}
+
+.centrado {
+  text-align: center;
+}
