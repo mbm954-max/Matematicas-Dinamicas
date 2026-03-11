@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ejercicio 5 - Poligonal en Canvas</title>
+
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f5f7fb;
+      color: #111;
+    }
+    .titulo{
+      background: navy;
+      color: white;
+      padding: 12px;
+      border: 4px solid black;
+    }
+    .tarjeta{
+      background: white;
+      border: 2px solid #111;
+      border-radius: 12px;
+      padding: 14px;
+      margin: 14px 0;
+    }
+    .fila{
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn{
+      padding: 8px 12px;
+      border: 2px solid black;
+      background: #fff3cd;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .btn:hover{ filter: brightness(0.95); }
+    .btnRojo{ background: #ffd6d6; }
+    .btnVerde{ background: #d7ffd7; }
+    .input{
+      padding: 6px;
+      border: 2px solid black;
+    }
+    #lienzo{
+      border: 4px solid black;
+      background: white;
+      border-radius: 12px;
+      cursor: crosshair;
+      max-width: 100%;
+    }
+    .mini{
+      font-size: 0.95em;
+      background: #e6f7ff;
+      border: 2px solid #111;
+      padding: 10px;
+      border-radius: 10px;
+    }
+    code{ background:#111; color:#e6f7ff; padding: 2px 6px; border-radius:6px; }
+  </style>
+</head>
+
+<body>
+  <h1 class="titulo">Ejercicio 5: Línea poligonal con Canvas (HTML + JavaScript)</h1>
+
+  <div class="tarjeta">
+    <p><strong>Instrucciones:</strong> haz click en el lienzo para ir creando puntos. Se dibujará una línea poligonal uniendo cada nuevo punto con el anterior.</p>
+    <div class="mini">
+      <p>
+        Atajos útiles:
+        <br>• <code>Deshacer</code> elimina el último punto.
+        <br>• <code>Limpiar</code> borra todo.
+        <br>• <code>Cerrar polígono</code> une el último punto con el primero.
+      </p>
+    </div>
+  </div>
+
+  <div class="tarjeta fila">
+    <button class="btn btnRojo" onclick="limpiar()">Limpiar</button>
+    <button class="btn" onclick="deshacer()">Deshacer último</button>
+
+    <label>
+      <input type="checkbox" id="cerrar" onchange="redibujar()">
+      Cerrar polígono
+    </label>
+
+    <label>
+      Color:
+      <input class="input" type="color" id="colorLinea" value="#d00000" onchange="redibujar()">
+    </label>
+
+    <label>
+      Grosor:
+      <input class="input" type="number" id="grosor" value="3" min="1" max="12" onchange="redibujar()">
+    </label>
+
+    <button class="btn btnVerde" onclick="guardarPNG()">Guardar PNG</button>
+  </div>
+
+  <div class="tarjeta">
+    <canvas id="lienzo" width="800" height="450" onclick="clickCanvas(event)"></canvas>
+
+    <div class="tarjeta mini" style="margin-top:12px;">
+      <div><strong>Último click:</strong> <span id="coord">—</span></div>
+      <div><strong>Nº de puntos:</strong> <span id="numPuntos">0</span></div>
+      <div><strong>Longitud total:</strong> <span id="longitud">0</span></div>
+    </div>
+
+    <p><a href="index.html">⬅ Volver a index</a></p>
+  </div>
+
+  <script>
+    // -----------------------------
+    // Datos del programa
+    // -----------------------------
+    const canvas = document.getElementById("lienzo");
+    const ctx = canvas.getContext("2d");
+
+    // Lista de puntos: cada punto es un objeto {x, y}
+    const puntos = [];
+
+    // -----------------------------
+    // Función: convierte el click (pantalla) a coordenadas del canvas
+    // -----------------------------
+    function coordenadasCanvas(event){
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.x;
+      const y = event.clientY - rect.y;
+      return {x, y};
+    }
+
+    // -----------------------------
+    // Función: distancia entre 2 puntos
+    // (función auxiliar para demostrar "dominio")
+    // -----------------------------
+    function distancia(p1, p2){
+      const dx = p2.x - p1.x;
+      const dy = p2.y - p1.y;
+      return Math.sqrt(dx*dx + dy*dy);
+    }
+
+    // -----------------------------
+    // Evento: click en el canvas
+    // -----------------------------
+    function clickCanvas(event){
+      const p = coordenadasCanvas(event);
+      puntos.push(p);
+
+      document.getElementById("coord").innerText =
+        "x=" + Math.round(p.x) + " , y=" + Math.round(p.y);
+
+      redibujar();
+    }
+
+    // -----------------------------
+    // Dibuja ejes + puntos + poligonal
+    // -----------------------------
+    function redibujar(){
+      // Limpia el canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Fondo suave (opcional)
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Ejes (para que sea más "matemático")
+      dibujaEjes();
+
+      // Si no hay puntos, actualiza info y sal
+      document.getElementById("numPuntos").innerText = puntos.length.toString();
+      document.getElementById("longitud").innerText = calcularLongitud().toFixed(2);
+
+      if(puntos.length === 0) return;
+
+      // Estilo de la línea
+      const color = document.getElementById("colorLinea").value;
+      const grosor = Number(document.getElementById("grosor").value);
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = grosor;
+
+      // Dibuja la poligonal
+      ctx.beginPath();
+      ctx.moveTo(puntos[0].x, puntos[0].y);
+
+      for(let i=1; i<puntos.length; i++){
+        ctx.lineTo(puntos[i].x, puntos[i].y);
+      }
+
+      // Si está marcada la opción, cerramos el polígono
+      const cerrar = document.getElementById("cerrar").checked;
+      if(cerrar && puntos.length >= 3){
+        ctx.lineTo(puntos[0].x, puntos[0].y);
+      }
+
+      ctx.stroke();
+
+      // Dibuja los puntos como círculos
+      for(let i=0; i<puntos.length; i++){
+        dibujaPunto(puntos[i], i);
+      }
+    }
+
+    // -----------------------------
+    // Dibuja un punto y su número
+    // -----------------------------
+    function dibujaPunto(p, indice){
+      ctx.beginPath();
+      ctx.fillStyle = "black";
+      ctx.arc(p.x, p.y, 4, 0, 2*Math.PI);
+      ctx.fill();
+
+      // número del punto
+      ctx.font = "14px Arial";
+      ctx.fillStyle = "navy";
+      ctx.fillText((indice+1).toString(), p.x + 6, p.y - 6);
+    }
+
+    // -----------------------------
+    // Dibuja ejes x/y en el centro para "toque matemático"
+    // -----------------------------
+    function dibujaEjes(){
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = "#cccccc";
+
+      // eje horizontal
+      ctx.beginPath();
+      ctx.moveTo(0, canvas.height/2);
+      ctx.lineTo(canvas.width, canvas.height/2);
+      ctx.stroke();
+
+      // eje vertical
+      ctx.beginPath();
+      ctx.moveTo(canvas.width/2, 0);
+      ctx.lineTo(canvas.width/2, canvas.height);
+      ctx.stroke();
+    }
+
+    // -----------------------------
+    // Calcula la longitud total de la poligonal
+    // -----------------------------
+    function calcularLongitud(){
+      let L = 0;
+      for(let i=1; i<puntos.length; i++){
+        L += distancia(puntos[i-1], puntos[i]);
+      }
+
+      // si se cierra, sumamos último con primero
+      const cerrar = document.getElementById("cerrar").checked;
+      if(cerrar && puntos.length >= 3){
+        L += distancia(puntos[puntos.length-1], puntos[0]);
+      }
+      return L;
+    }
+
+    // -----------------------------
+    // Botón: limpiar
+    // -----------------------------
+    function limpiar(){
+      puntos.length = 0;
+      document.getElementById("coord").innerText = "—";
+      redibujar();
+    }
+
+    // -----------------------------
+    // Botón: deshacer último punto
+    // -----------------------------
+    function deshacer(){
+      if(puntos.length > 0){
+        puntos.pop();
+        redibujar();
+      }
+    }
+
+    // -----------------------------
+    // Botón: guardar canvas como imagen
+    // (extra para originalidad)
+    // -----------------------------
+    function guardarPNG(){
+      const enlace = document.createElement("a");
+      enlace.download = "poligonal.png";
+      enlace.href = canvas.toDataURL("image/png");
+      enlace.click();
+    }
+
+    // Dibujo inicial
+    redibujar();
+  </script>
+</body>
+</html>
