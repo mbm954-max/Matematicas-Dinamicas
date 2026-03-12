@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Intersección de Rectas</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #canvas { border: 1px solid black; }
+        #mensaje { margin-top: 20px; font-size: 18px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Teorema de la Intersección de Rectas</h1>
+    <p>Haz clic en el lienzo para definir dos puntos de cada recta. El programa calculará el punto de intersección.</p>
+
+    <canvas id="canvas" width="600" height="600"></canvas>
+
+    <div id="mensaje"></div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let puntos = [];
+        let mensaje = document.getElementById('mensaje');
+        
+        // Función para dibujar la recta entre dos puntos
+        function dibujarRecta(x1, y1, x2, y2) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+        }
+
+        // Función para calcular el punto de intersección entre dos rectas
+        function interseccion(p1, p2, p3, p4) {
+            const x1 = p1.x, y1 = p1.y, x2 = p2.x, y2 = p2.y;
+            const x3 = p3.x, y3 = p3.y, x4 = p4.x, y4 = p4.y;
+
+            const m1 = (y2 - y1) / (x2 - x1);
+            const m2 = (y4 - y3) / (x4 - x3);
+
+            // Si las pendientes son iguales, no hay intersección
+            if (m1 === m2) {
+                mensaje.textContent = 'Las rectas son paralelas y no se intersectan.';
+                return null;
+            }
+
+            // Calculamos la intersección
+            const b1 = y1 - m1 * x1;
+            const b2 = y3 - m2 * x3;
+            const x_interseccion = (b2 - b1) / (m1 - m2);
+            const y_interseccion = m1 * x_interseccion + b1;
+
+            return { x: x_interseccion, y: y_interseccion };
+        }
+
+        // Función para manejar los clics del usuario
+        canvas.addEventListener('click', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Guardar los puntos en el array
+            puntos.push({ x, y });
+
+            // Dibujar el punto clicado
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, 2 * Math.PI);
+            ctx.fill();
+
+            // Si tenemos dos puntos de cada recta, dibujamos las rectas
+            if (puntos.length === 4) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                // Dibujar las rectas
+                dibujarRecta(puntos[0].x, puntos[0].y, puntos[1].x, puntos[1].y); // Primera recta
+                dibujarRecta(puntos[2].x, puntos[2].y, puntos[3].x, puntos[3].y); // Segunda recta
+
+                // Calcular intersección
+                const puntoInterseccion = interseccion(puntos[0], puntos[1], puntos[2], puntos[3]);
+
+                // Si hay intersección, dibujamos el punto
+                if (puntoInterseccion) {
+                    ctx.beginPath();
+                    ctx.arc(puntoInterseccion.x, puntoInterseccion.y, 5, 0, 2 * Math.PI);
+                    ctx.fillStyle = 'red';
+                    ctx.fill();
+                    mensaje.textContent = `El punto de intersección es: (${puntoInterseccion.x.toFixed(2)}, ${puntoInterseccion.y.toFixed(2)})`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
