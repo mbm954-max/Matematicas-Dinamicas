@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Áreas y Perímetros</title>
+  <link rel="stylesheet" href="estilos.css"> <!-- Este es el archivo de estilo, si lo tienes -->
+</head>
+<body>
+
+  <h1>Calculadora de Áreas y Perímetros</h1>
+
+  <form id="calculadora">
+    <label for="figura">Selecciona una figura:</label>
+    <select id="figura" onchange="mostrarCampos()">
+      <option value="cuadrado">Cuadrado</option>
+      <option value="rectangulo">Rectángulo</option>
+      <option value="circulo">Círculo</option>
+      <option value="triangulo">Triángulo</option>
+    </select>
+
+    <div id="campos"></div>
+
+    <button type="button" onclick="calcular()">Calcular</button>
+  </form>
+
+  <div id="resultados">
+    <h3>Resultados:</h3>
+    <p id="area"></p>
+    <p id="perimetro"></p>
+  </div>
+
+  <script src="script.js"></script> <!-- Este es el archivo JavaScript -->
+
+</body>
+</html>
