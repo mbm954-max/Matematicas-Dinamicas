@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teorema de Pitágoras - Demostración Interactiva</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    #canvas-container {
+      text-align: center;
+    }
+    canvas {
+      border: 2px solid #000;
+    }
+    .controls {
+      text-align: center;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Demostración del Teorema de Pitágoras</h1>
+  <p>El teorema dice que en un triángulo rectángulo, el cuadrado de la hipotenusa es igual a la suma de los cuadrados de los catetos:</p>
+  <p>\( c^2 = a^2 + b^2 \)</p>
+  <div class="controls">
+    <label for="catetoA">Cateto a: </label>
+    <input type="number" id="catetoA" value="3" step="0.1" min="0">
+    <br><br>
+    <label for="catetoB">Cateto b: </label>
+    <input type="number" id="catetoB" value="4" step="0.1" min="0">
+    <br><br>
+    <button onclick="calcularTeorema()">Calcular Hipotenusa</button>
+  </div>
+
+  <div id="canvas-container">
+    <canvas id="teoremaCanvas" width="500" height="500"></canvas>
+  </div>
+
+  <div id="resultado" style="text-align: center;"></div>
+
+  <script>
+    function calcularTeorema() {
+      var a = parseFloat(document.getElementById('catetoA').value);
+      var b = parseFloat(document.getElementById('catetoB').value);
+
+      // Calcular la hipotenusa
+      var c = Math.sqrt(a * a + b * b);
+
+      // Mostrar el resultado
+      document.getElementById('resultado').innerHTML = `La hipotenusa es: \( c = ${c.toFixed(2)} \)`;
+
+      // Dibujar el triángulo en el lienzo
+      var canvas = document.getElementById("teoremaCanvas");
+      var ctx = canvas.getContext("2d");
+
+      // Limpiar el lienzo
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Dibujar el triángulo rectángulo
+      ctx.beginPath();
+      ctx.moveTo(50, 50); // Punto de inicio
+      ctx.lineTo(50 + a * 30, 50); // Cateto a
+      ctx.lineTo(50 + a * 30, 50 + b * 30); // Cateto b
+      ctx.closePath();
+      ctx.stroke();
+
+      // Dibujar la hipotenusa
+      ctx.beginPath();
+      ctx.moveTo(50, 50);
+      ctx.lineTo(50 + a * 30, 50 + b * 30);
+      ctx.stroke();
+
+      // Etiquetas de los lados
+      ctx.font = "14px Arial";
+      ctx.fillText("a", 50 + a * 15, 45);
+      ctx.fillText("b", 45, 50 + b * 15);
+      ctx.fillText("c", 50 + a * 15, 50 + b * 15);
+
+      // Dibujar el cuadro del teorema (los cuadrados)
+      ctx.beginPath();
+      ctx.moveTo(50 + a * 30, 50);
+      ctx.lineTo(50 + a * 30 + a * 30, 50); // Cuadro de a
+      ctx.lineTo(50 + a * 30 + a * 30, 50 + a * 30);
+      ctx.lineTo(50 + a * 30, 50 + a * 30);
+      ctx.closePath();
+      ctx.strokeStyle = 'rgba(0, 128, 0, 0.3)';
+      ctx.fillStyle = 'rgba(0, 128, 0, 0.3)';
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(50, 50);
+      ctx.lineTo(50, 50 + b * 30);
+      ctx.lineTo(50 - b * 30, 50 + b * 30);
+      ctx.lineTo(50 - b * 30, 50);
+      ctx.closePath();
+      ctx.strokeStyle = 'rgba(255, 0, 0, 0.3)';
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+      ctx.fill();
+      ctx.stroke();
+
+      // Demostrar la relación con el área
+      ctx.fillStyle = '#000';
+      ctx.fillText("Área: a² + b² = c²", 50 + a * 5, 50 + b * 5);
+    }
+
+    // Inicializar el cálculo y dibujo con valores predeterminados
+    calcularTeorema();
+  </script>
+
+</body>
+</html>
